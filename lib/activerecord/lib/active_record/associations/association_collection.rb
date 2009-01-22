@@ -5,6 +5,8 @@ module ActiveRecord #:nodoc:
     class AssociationCollection < AssociationProxy #:nodoc:
       alias_method :replace_without_accessible_collection, :replace
       def replace(other_array) #:nodoc:
+        other_array = other_array.collect{ |key, value| value } if other_array.respond_to? :each_pair # Hash*
+
         if @reflection.options[:accessible]
           replace_with_accessible_collection(other_array)
         else

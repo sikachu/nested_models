@@ -38,3 +38,5 @@
   Project.create :name => "NestedModels", :tasks => [
     { :name => "Implement", :description => "Implement me" }
   ]
+
+* Update replace method to convert the parameter to Array first in case it's a Hash, or Hash-like class.
