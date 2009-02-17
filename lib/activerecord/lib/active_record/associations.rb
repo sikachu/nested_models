@@ -50,6 +50,24 @@ module ActiveRecord
             end
           end
         end
+        
+        if association_proxy_class == BelongsToAssociation
+          define_method("#{reflection.primary_key_name}=") do |target_id|
+            if instance_variable_defined?(ivar)
+              if association = instance_variable_get(ivar)
+                association.reset
+              end
+            end
+            write_attribute(reflection.primary_key_name, target_id)
+          end
+        end
+
+        define_method("set_#{reflection.name}_target") do |target|
+          return if target.nil? and association_proxy_class == BelongsToAssociation
+          association = association_proxy_class.new(self, reflection)
+          association.target = target
+          instance_variable_set(ivar, association)
+        end
     end
   end
 end
