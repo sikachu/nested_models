@@ -9,7 +9,7 @@ module ActiveRecord
     class_inheritable_accessor :accessible_association_destroy_flag
     self.accessible_association_destroy_flag = :destroy
 
-    attr_accessor accessible_association_destroy_flag
+    attr_accessor :accessible_association_destroy_flag
 
     def destroyable?
       @destroyable ||= !!send(accessible_association_destroy_flag)
